@@ -15,7 +15,6 @@
 @implementation AppDelegate
 
 # define weixin_appid @"wx1369f1ceefea6b5c"                         //微信分享
-# define weixin_appsecret @"606f2b0431e1f9ebff09c78bb7d3bc8a"
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     [WXApi registerApp:weixin_appid];//wxd930ea5d5a258f4f这串key是在微信开放平注册该应用后获得的，注册一般是后台去做的，叫后台把key给你即可

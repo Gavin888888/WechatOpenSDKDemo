@@ -1,12 +1,47 @@
 PODS:
-  - WechatOpenSDK (1.8.0)
+  - AFNetworking (3.1.0):
+    - AFNetworking/NSURLSession (= 3.1.0)
+    - AFNetworking/Reachability (= 3.1.0)
+    - AFNetworking/Security (= 3.1.0)
+    - AFNetworking/Serialization (= 3.1.0)
+    - AFNetworking/UIKit (= 3.1.0)
+  - AFNetworking/NSURLSession (3.1.0):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (3.1.0)
+  - AFNetworking/Security (3.1.0)
+  - AFNetworking/Serialization (3.1.0)
+  - AFNetworking/UIKit (3.1.0):
+    - AFNetworking/NSURLSession
+  - WechatOpenSDK (1.8.3)
+  - YSJNetWorking (0.1.5):
+    - AFNetworking (~> 3.1.0)
 
 DEPENDENCIES:
   - WechatOpenSDK
+  - YSJNetWorking (from `http://svn.99melove.cn/repos/makj/projects/application/miaiIOS/Module/YSJNetWorking/`)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - AFNetworking
+    - WechatOpenSDK
+
+EXTERNAL SOURCES:
+  YSJNetWorking:
+    :svn: http://svn.99melove.cn/repos/makj/projects/application/miaiIOS/Module/YSJNetWorking/
+    :tag: 0.1.37
+
+CHECKOUT OPTIONS:
+  YSJNetWorking:
+    :svn: http://svn.99melove.cn/repos/makj/projects/application/miaiIOS/Module/YSJNetWorking/
+    :tag: 0.1.37
 
 SPEC CHECKSUMS:
-  WechatOpenSDK: 0ee07a8d492299d3e47372a33da5af26524a7576
+  AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
+  WechatOpenSDK: 3117412f8aafde4758cac1e8d20b93c67cafcfef
+  YSJNetWorking: e17cbc4f21afeceeffd704c61f0ea4f22ec5b0ac
 
-PODFILE CHECKSUM: e5caf75d23ac3215c5db375a4369367721f0dd23
+PODFILE CHECKSUM: 5159f660084831c058574b5d070475eeb50abc05
 
-COCOAPODS: 1.2.1
+COCOAPODS: 1.5.3

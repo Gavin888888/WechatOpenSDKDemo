@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import <WechatOpenSDK/WXApi.h>
+#import <YSJNetWorking/YSJNetworkingHeader.h>
 @interface ViewController ()
 
 @end
@@ -31,16 +32,17 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)weixinPay{
+- (void)weixinPay1{
     PayReq *req = [[PayReq alloc] init];
     //实际项目中这些参数都是通过网络请求后台得到的，详情见以下注释，测试的时候可以让后台将价格改为1分钱
-    req.openID = @"appid";//微信开放平台审核通过的AppID
-    req.partnerId = @"partnerid";//微信支付分配的商户ID
-    req.prepayId = @"prepayid";// 预支付交易会话ID
-    req.nonceStr =@"noncestr";//随机字符串
-   // req.timeStamp = @"timestamp";//当前时间
-    req.package = @"package";//固定值
-    req.sign =@"sign";//签名，除了sign，剩下6个组合的再次签名字符串
+//    wx1369f1ceefea6b5c
+    req.openID = @"wx1369f1ceefea6b5c";//微信开放平台审核通过的AppID
+    req.partnerId = @"1517519921";//微信支付分配的商户ID
+    req.prepayId = @"wx201631398409308c082dc0c10112965935";// 预支付交易会话ID
+    req.nonceStr =@"VmzQFAPZZhxp4R6J";//随机字符串
+//    req.timeStamp = @"1542702434";//当前时间
+    req.package = @"Sign=WXPay";//固定值
+    req.sign =@"83E7B19653EDEC4089D6FDE939D1B98E";//签名，除了sign，剩下6个组合的再次签名字符串
     
     if ([WXApi isWXAppInstalled] == YES) {
         //此处会调用微信支付界面
@@ -54,64 +56,54 @@
     }
 }
 
-/**
+
 #pragma mark --微信支付--
 - (void)weixinPay{
-    __weak typeof (self) weakself = self;
-    if (![AFNetWorkingManager isNetworking]) {
-        [MBManager showMessage:@"网络不可用" inView:self.view afterDelayTime:2];
-        return;
-    }
-    //--->实际项目代码
-    NSString *url =[NSString stringWithFormat:@"%@%@", pBaseURL,WxPrepayURL];
-    NSLog(@"微信支付___URL=== %@,%@", url,self.orderId);
-    
-    [AFNetWorkingManager postDataWithUrl:url parameters:@{@"orderID":self.orderId} success:^(id responseObject) {
-        int code = [[responseObject objectForKey:@"code"] intValue];
-        switch (code) {
-            case 0:{
-                PayReq *req = [[PayReq alloc] init];
-                id dic = [responseObject objectForKey:@"data"];
-                if ([dic isKindOfClass:[NSString class]]) {
-                    NSString *str = [NSString stringWithFormat:@"%@",dic];
-                    if ([str isEqualToString:@"PAY_SUCCESS"]) {
-                        [weakself goToOrderDetailVC];
-                        return ;
-                    }
-                    return ;
-                }
-                req.openID = [dic objectForKey:@"appid"];//AppID
-                req.partnerId = [dic objectForKey:@"partnerid"];
-                req.prepayId = [dic objectForKey:@"prepayid"];
-                req.nonceStr = [dic objectForKey:@"noncestr"];
-                req.timeStamp = [[dic objectForKey:@"timestamp"] intValue];
-                req.package = [dic objectForKey:@"package_"];
-                req.sign = [dic objectForKey:@"sign"];
-                if ([WXApi isWXAppInstalled] == YES) {
-                    BOOL sss =   [WXApi sendReq:req];
-                    if (!sss ) {
-                        [MBManager showMessage:@"微信sdk错误" inView:weakself.view afterDelayTime:2];
-                    }
-                } else {
-                    //微信未安装
-                    [MBManager showMessage:@"您没有安装微信" inView:weakself.view afterDelayTime:2];
-                }
-            }
-                break;
-            case 403:
-                [weakself exitLogin];
-                break;
-            case 400:
-                [MBManager showMessage:[responseObject objectForKey:@"desc"]inView:weakself.view afterDelayTime:2];
-                break;
-            default:
-                [MBManager showMessage:@"服务器未知错误"inView:weakself.view afterDelayTime:2];
-                break;
-        }
+    NSString *url = @"http://service5.99melove.cn/taole-pay-service/service/rest/taole-pay.WechatPayApi/collection/wxUnifiedOrder";
+    NSDictionary *headers = @{};
+    NSDictionary *params = @{
+                             @"accountId": @"123",
+                             @"channelCode": @"miai_wechat_app_001",
+                             @"description": @"ios支付测试",
+                             @"detail": @"string",
+                             @"openid":@"wx1369f1ceefea6b5c",
+                             @"orderId": [NSString stringWithFormat:@"%d",arc4random()],
+                             @"productId": @"1122112211221122",
+                             @"totalFee": @"0.01",
+                             @"tradeType": @"APP"
+                             };
+    [[YSJNetworking ShareYSJNetworking] post_header:headers url:url body:params success:^(id  _Nonnull ysjResponseObject) {
         
-    } failure:^(NSError *error) {
-        [MBManager showMessage:@"服务器出错啦" inView:weakself.view afterDelayTime:2];
+        NSDictionary *result = [ysjResponseObject objectForKey:@"result"];
+       
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            
+
+            PayReq *req = [[PayReq alloc] init];
+            //实际项目中这些参数都是通过网络请求后台得到的，详情见以下注释，测试的时候可以让后台将价格改为1分钱
+            //    wx1369f1ceefea6b5c
+            req.openID = @"wx1369f1ceefea6b5c";//微信开放平台审核通过的AppID
+            req.partnerId = @"1517519921";//微信支付分配的商户ID
+            req.prepayId = result[@"prepayId"];// 预支付交易会话ID
+            req.nonceStr = result[@"noncestr"];//随机字符串
+            req.timeStamp = [result[@"time_stamp"] intValue];//当前时间
+            req.package = @"Sign=WXPay";//固定值
+            req.sign = result[@"sign"];//签名，除了sign，剩下6个组合的再次签名字符串
+            
+            if ([WXApi isWXAppInstalled] == YES) {
+                //此处会调用微信支付界面
+                BOOL sss =   [WXApi sendReq:req];
+                if (!sss ) {
+                    // [MBManager showMessage:@"微信sdk错误" inView:weakself.view afterDelayTime:2];
+                }
+            }else {
+                //微信未安装
+                // [MBManager showMessage:@"您没有安装微信" inView:weakself.view afterDelayTime:2];
+            }
+        }];
+
+    } failure:^(NSError * _Nullable ysjError) {
+        
     }];
 }
-*/
 @end
