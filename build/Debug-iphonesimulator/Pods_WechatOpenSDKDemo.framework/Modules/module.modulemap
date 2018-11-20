@@ -1,0 +1,6 @@
+framework module Pods_WechatOpenSDKDemo {
+  umbrella header "Pods-WechatOpenSDKDemo-umbrella.h"
+
+  export *
+  module * { export * }
+}

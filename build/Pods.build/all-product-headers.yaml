@@ -1,0 +1,33 @@
+{
+  'version': 0,
+  'case-sensitive': 'false',
+  'roots': [
+    {
+      'type': 'directory',
+      'name': "/Users/liqiu/Desktop/WechatOpenSDKDemo/build/Debug-iphonesimulator/Pods_WechatOpenSDKDemo.framework/Headers",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "Pods-WechatOpenSDKDemo-umbrella.h",
+          'external-contents': "/Users/liqiu/Desktop/WechatOpenSDKDemo/Pods/Target Support Files/Pods-WechatOpenSDKDemo/Pods-WechatOpenSDKDemo-umbrella.h"
+        },
+        {
+          'type': 'file',
+          'name': "Pods_WechatOpenSDKDemo-Swift.h",
+          'external-contents': "/Users/liqiu/Desktop/WechatOpenSDKDemo/build/Debug-iphonesimulator/Pods_WechatOpenSDKDemo.framework/Headers/Pods_WechatOpenSDKDemo-Swift.h"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/liqiu/Desktop/WechatOpenSDKDemo/build/Debug-iphonesimulator/Pods_WechatOpenSDKDemo.framework/Modules",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "module.modulemap",
+          'external-contents': "/Users/liqiu/Desktop/WechatOpenSDKDemo/build/Pods.build/Debug-iphonesimulator/Pods-WechatOpenSDKDemo.build/module.modulemap"
+        }
+      ]
+    }
+  ]
+}
